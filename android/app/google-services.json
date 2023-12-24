@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1070699439998",
+    "project_id": "alergenapp-882bb",
+    "storage_bucket": "alergenapp-882bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070699439998:android:7e0027dc05e3d6763ef52f",
+        "android_client_info": {
+          "package_name": "com.example.alergen_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjON1GXrsUxphUZyPIrRRzFYzj0fRtkSM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
