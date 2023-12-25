@@ -1,36 +1,37 @@
 part of '../home_view.dart';
 
 class _BodyLwb extends StatelessWidget {
-  const _BodyLwb({
-    required this.product,
-  });
-
-  final List<ProductModel> product;
+  const _BodyLwb();
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: context.padding.onlyTopLow,
-      child: SizedBox(
-        height: context.sized.dynamicHeight(.3),
-        child: ListView.builder(
-          itemCount: product.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Padding(
-                padding: context.padding.verticalLow,
-                child: ListTile(
-                  leading: Image.network(
-                    product[index].imageUrl!,
-                    height: context.sized.dynamicHeight(.1),
-                    width: context.sized.dynamicWidth(.25),
-                    fit: BoxFit.cover,
-                  ),
-                  title: Text(product[index].name!),
-                  subtitle: Text(product[index].content!),
-                ));
-          },
-        ),
-      ),
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        final products = state.productList ?? [];
+        return Padding(
+          padding: context.padding.onlyTopLow,
+          child: SizedBox(
+            height: context.sized.dynamicHeight(.175),
+            child: ListView.builder(
+              itemCount: products.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
+                    padding: context.padding.verticalLow,
+                    child: ListTile(
+                      leading: Image.network(
+                        products[index].imageUrl!,
+                        height: context.sized.dynamicHeight(.3),
+                        width: context.sized.dynamicWidth(.25),
+                        fit: BoxFit.cover,
+                      ),
+                      title: Text(products[index].name!),
+                      subtitle: Text(products[index].content!),
+                    ));
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 }

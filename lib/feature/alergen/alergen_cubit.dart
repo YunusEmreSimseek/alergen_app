@@ -70,14 +70,20 @@ class AlergenCubit extends Cubit<AlergenState> {
     changeLoading();
   }
 
-  Future<void> addUserIntoAlergen(String userId, AlergenModel alergen) async {
+  Future<bool> addUserIntoAlergen(String userId, AlergenModel alergen) async {
     changeLoading();
+    if (alergen.userIdList!.contains(state.user!.id)) {
+      changeLoading();
+      return false;
+    }
     alergen.userIdList!.add(userId);
     await FirebaseCollections.alergen.reference.doc(alergen.id).update({
       "name": alergen.name,
       "userIdList": alergen.userIdList,
     });
+    await fetchUserAlergens(state.user!.id);
     changeLoading();
+    return true;
   }
 
   Future<void> removeUserIntoAlergen(String userId, AlergenModel alergen) async {
@@ -87,6 +93,7 @@ class AlergenCubit extends Cubit<AlergenState> {
       "name": alergen.name,
       "userIdList": alergen.userIdList,
     });
+
     changeLoading();
   }
 

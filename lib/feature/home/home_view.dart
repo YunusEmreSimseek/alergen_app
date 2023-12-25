@@ -2,7 +2,6 @@
 
 import 'package:alergen_app/feature/home/home_cubit.dart';
 import 'package:alergen_app/feature/home/sub_view/home_search_delegate.dart';
-import 'package:alergen_app/product/constant/color_constant.dart';
 import 'package:alergen_app/product/constant/string_constant.dart';
 import 'package:alergen_app/product/model/product_model.dart';
 import 'package:alergen_app/product/model/user_model.dart';
@@ -54,7 +53,6 @@ class _HomeViewState extends State<HomeView> {
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {},
       builder: (context, state) {
-        final product = state.productList ?? [];
         if (state.selectedProduct != null) {
           _controller.text = state.selectedProduct?.name ?? '';
         }
@@ -72,21 +70,22 @@ class _HomeViewState extends State<HomeView> {
           body: SafeArea(
             child: Padding(
               padding: context.padding.normal,
-              child: ListView(
+              child: Column(
                 children: [
-                  _CustomField(_controller),
-                  context.sized.emptySizedHeightBoxLow3x,
+                  Padding(
+                    padding: context.padding.onlyBottomNormal,
+                    child: _CustomField(_controller),
+                  ),
                   const TitleText(title: StringConstant.homeCategory),
                   context.sized.emptySizedHeightBoxLow,
                   const _CategoryLwb(),
-                  context.sized.emptySizedHeightBoxLow,
                   state.selectedCategory?.id == null
                       ? Column(
                           children: [
                             const SliderDeneme(),
                             context.sized.emptySizedHeightBoxLow,
                             _recommendedRow(),
-                            _BodyLwb(product: product),
+                            const _BodyLwb(),
                           ],
                         )
                       : const ProductListWithCategory(),

@@ -32,7 +32,7 @@ class _SliderDenemeState extends State<SliderDeneme> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: context.sized.dynamicHeight(.3),
+      height: context.sized.dynamicHeight(.28),
       width: MediaQuery.of(context).size.width,
       child: PageView.builder(
         pageSnapping: true,

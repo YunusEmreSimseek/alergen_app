@@ -19,19 +19,23 @@ class ProfileCubit extends Cubit<ProfileState> {
         )
         .get();
     if (response.docs.isNotEmpty) {
-      final values = response.docs.single.data();
-      emit(state.copyWith(values: values));
-      return values;
+      final user = response.docs.single.data();
+      emit(state.copyWith(user: user));
+      return user;
     }
     return null;
   }
 
-  void updateIsChanged() {
-    emit(state.copyWith(isChanged: true));
+  void updateIsChanged(bool value) {
+    emit(state.copyWith(isChanged: value));
   }
 
   void changeLoading() {
     emit(state.copyWith(isLoading: !state.isLoading));
+  }
+
+  void changeIsDarkMode() {
+    emit(state.copyWith(isDarkMode: !state.isDarkMode));
   }
 
   void resetState() {
@@ -53,16 +57,18 @@ class ProfileCubit extends Cubit<ProfileState> {
 }
 
 class ProfileState {
-  const ProfileState({this.values, this.isChanged = false, this.isLoading = false});
-  final UserModel? values;
+  const ProfileState({this.user, this.isChanged = false, this.isLoading = false, this.isDarkMode = false});
+  final UserModel? user;
   final bool isChanged;
   final bool isLoading;
+  final bool isDarkMode;
 
-  ProfileState copyWith({UserModel? values, bool? isChanged, bool? isLoading}) {
+  ProfileState copyWith({UserModel? user, bool? isChanged, bool? isLoading, bool? isDarkMode}) {
     return ProfileState(
-      values: values ?? this.values,
+      user: user ?? this.user,
       isChanged: isChanged ?? this.isChanged,
       isLoading: isLoading ?? this.isLoading,
+      isDarkMode: isDarkMode ?? this.isDarkMode,
     );
   }
 }

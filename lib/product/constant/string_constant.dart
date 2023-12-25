@@ -41,10 +41,22 @@ class StringConstant {
   static const welcomeTitle = 'Welcome';
   static const yesTitle = 'Evet';
   static const noTitle = 'Hayır';
+  static const okTitle = 'Tamam';
 
   // Dialog
   static const dialogExitTitle = 'Emin Misiniz ?';
   static const dialogExitContent = 'Hesabınızdan çıkış yapmak istediğinizden emin misiniz ?';
+  static const dialogProfileUpdateTitle = 'Güncelleme Başarılı';
+  static const dialogProfileUpdateContent = 'Bilgileriniz başarıyla güncellenmiştir.';
+  static const dialogUserRegisterTitle = 'Kayıt Başarılı';
+  static const dialogUserRegisterContent = 'Kaydınız başarıyla yapılmıştır birazdan ana sayfaya yönlendirileceksiniz.';
+  static const dialogAlergenAddingSuccesTitle = 'Alerjen Başarıyla Eklendi';
+  static const dialogAlergenAddingSuccesContent = 'Seçtiğiniz alerjen, alerjen listenize başarıyla eklendi.';
+  static const dialogAlergenAddingFailedTitle = 'Alerjen Eklenemedi';
+  static const dialogAlergenAddingFailedContent =
+      'Seçtiğiniz alerjen, zaten alerjen listenizde bulunduğu için listeye eklenemedi.';
+  static const alergenRemovedSuccesTitle = 'Alerjen Başarıyla Silindi';
+  static const alergenRemovedSuccesContent = 'Seçtiğiniz alerjen, alerjen listenizden başarıyla silindi.';
 
   // Validation Types
   static const validationName = 'name';

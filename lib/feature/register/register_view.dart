@@ -1,6 +1,7 @@
 import 'package:alergen_app/feature/register/register_cubit.dart';
 import 'package:alergen_app/product/constant/string_constant.dart';
 import 'package:alergen_app/product/model/user_model.dart';
+import 'package:alergen_app/product/widget/dialog/my_show_dialog.dart';
 import 'package:alergen_app/product/widget/field/custom_text_form_field.dart';
 import 'package:alergen_app/product/widget/text/title_text.dart';
 import 'package:flutter/material.dart';
@@ -115,7 +116,8 @@ class _RegisterViewState extends State<RegisterView> {
               password: read.passwordController.text,
               surname: read.surnameController.text,
             );
-
+            MyShowDialog.userRegister(context);
+            Future.delayed(const Duration(seconds: 3), () => context.route.pop());
             await read.registerUser(user);
           }
         },

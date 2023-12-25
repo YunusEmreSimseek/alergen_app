@@ -4,6 +4,7 @@ import 'package:alergen_app/feature/alergen/alergen_cubit.dart';
 import 'package:alergen_app/product/constant/string_constant.dart';
 import 'package:alergen_app/product/model/alergen_model.dart';
 import 'package:alergen_app/product/model/user_model.dart';
+import 'package:alergen_app/product/widget/dialog/my_show_dialog.dart';
 import 'package:alergen_app/product/widget/text/title_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -89,6 +90,7 @@ class _AlergenViewState extends State<AlergenView> {
                 IconButton(
                     onPressed: () async {
                       await read.removeUserIntoAlergen(state.user!.id!, state.userAlergens[index]);
+                      MyShowDialog.alergenRemovedSucces(context);
                       await read.fetchAndLoad(state.user!.id);
                     },
                     icon: const Icon(Icons.remove_circle_outline))
@@ -133,8 +135,15 @@ class _AddAlergenState extends State<AddAlergen> {
                         ),
                         actions: [
                           TextButton(
-                              onPressed: () {
-                                context.read<AlergenCubit>().addUserIntoAlergen(state.user!.id!, selectedAlergen!);
+                              onPressed: () async {
+                                final response = await context
+                                    .read<AlergenCubit>()
+                                    .addUserIntoAlergen(state.user!.id!, selectedAlergen!);
+                                if (response) {
+                                  MyShowDialog.alergenAddingSucces(context);
+                                } else {
+                                  MyShowDialog.alergenAddingFailed(context);
+                                }
                               },
                               child: const Text('Ekle'))
                         ],

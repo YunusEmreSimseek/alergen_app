@@ -32,7 +32,7 @@ class _CategoryLwb extends StatelessWidget {
                       padding: context.padding.onlyRightLow,
                       child: Text(
                         currentCategory.name!,
-                        style: const TextStyle(color: ColorConstant.colorBlack, fontSize: 17),
+                        style: const TextStyle(fontSize: 17),
                       ),
                     ));
               },

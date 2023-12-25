@@ -2,10 +2,11 @@
 
 import 'package:alergen_app/feature/login/login_view.dart';
 import 'package:alergen_app/feature/profile/profile_cubit.dart';
-import 'package:alergen_app/product/constant/color_constant.dart';
+import 'package:alergen_app/main.dart';
 import 'package:alergen_app/product/constant/string_constant.dart';
 import 'package:alergen_app/product/model/user_model.dart';
 import 'package:alergen_app/product/widget/button/profile_button.dart';
+import 'package:alergen_app/product/widget/dialog/my_show_dialog.dart';
 import 'package:alergen_app/product/widget/text/sub_title_text.dart';
 import 'package:alergen_app/product/widget/text/title_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -28,7 +29,7 @@ class _ProfileViewState extends State<ProfileView> {
 
   Future<void> getUser() async {
     await context.read<ProfileCubit>().fetchUserDetails(FirebaseAuth.instance.currentUser);
-    user = context.read<ProfileCubit>().state.values!;
+    user = context.read<ProfileCubit>().state.user!;
     _profileLogic.addControllerToList(userModel: user);
   }
 
@@ -47,6 +48,7 @@ class _ProfileViewState extends State<ProfileView> {
     UserModel newUser =
         user.copyWith(name: _profileLogic.nameController.text, surname: _profileLogic.surnameController.text);
     await context.read<ProfileCubit>().updateUser(newUser);
+    MyShowDialog.userProfileUpdate(context);
     await context.read<ProfileCubit>().fetchUserDetails(FirebaseAuth.instance.currentUser);
   }
 
@@ -56,20 +58,29 @@ class _ProfileViewState extends State<ProfileView> {
       listener: (context, state) {},
       builder: (context, state) {
         final read = context.read<ProfileCubit>();
-        if (state.values == null) {
+        if (state.user == null) {
           return const SizedBox.shrink();
         } else {
           return Scaffold(
             appBar: AppBar(
               leading: const SizedBox.shrink(),
-              title: TitleText(title: 'Profile ${state.values!.name}'),
+              title: TitleText(title: 'Profile ${state.user!.name}'),
               actions: [
                 if (state.isLoading)
                   const Center(
-                    child: CircularProgressIndicator(color: ColorConstant.colorBlack),
+                    child: CircularProgressIndicator(),
                   )
                 else
-                  const _ExitToAppButton()
+                  BlocBuilder<Maincubit, bool>(
+                    builder: (context, state) {
+                      return IconButton(
+                          onPressed: () {
+                            context.read<Maincubit>().changeIsDarkMode();
+                          },
+                          icon: state ? const Icon(Icons.dark_mode) : const Icon(Icons.dark_mode_outlined));
+                    },
+                  ),
+                const _ExitToAppButton()
               ],
             ),
             body: Padding(
@@ -77,8 +88,14 @@ class _ProfileViewState extends State<ProfileView> {
               child: SafeArea(
                   child: Form(
                 onChanged: () {
-                  read.updateIsChanged();
-                  updatedModel = user.copyWith();
+                  if (state.user!.name != _profileLogic.nameController.text ||
+                      state.user!.surname != _profileLogic.surnameController.text) {
+                    read.updateIsChanged(true);
+                    updatedModel = user.copyWith();
+                  } else if (state.user!.name == _profileLogic.nameController.text &&
+                      state.user!.surname == _profileLogic.surnameController.text) {
+                    read.updateIsChanged(false);
+                  }
                 },
                 child: Padding(
                   padding: context.padding.low,
@@ -89,7 +106,7 @@ class _ProfileViewState extends State<ProfileView> {
                         padding: context.padding.onlyBottomNormal,
                         child: const TitleText(title: StringConstant.profilePersonelInformation),
                       ),
-                      GetInfo(userModel: state.values!, controllerList: _profileLogic.controllerList),
+                      GetInfo(userModel: state.user!, controllerList: _profileLogic.controllerList),
                       state.isChanged
                           ? ProfileButton(text: StringConstant.saveTitle, function: updateUser)
                           : const SizedBox.shrink(),
@@ -162,7 +179,6 @@ class GetInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileCubit, ProfileState>(
       builder: (context, state) {
-        final read = context.read<ProfileCubit>();
         return Padding(
           padding: context.padding.onlyBottomLow,
           child: SizedBox(
@@ -177,9 +193,6 @@ class GetInfo extends StatelessWidget {
                       obscureText: index == 4 ? true : false,
                       controller: controllerList[index],
                       enabled: (index == 2 || index == 3 || index == 4) ? false : true,
-                      onChanged: (value) {
-                        read.updateIsChanged();
-                      },
                       decoration: InputDecoration(
                         prefixText: liste[index],
                         border: const OutlineInputBorder(),
