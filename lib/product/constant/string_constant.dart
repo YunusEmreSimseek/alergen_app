@@ -33,10 +33,18 @@ class StringConstant {
 
   // Alergen Page
   static const alergenTitle = 'Alergens';
+  static const alergenInformation = 'Alerjen Bilgileriniz';
+  static const alergenChooseAlergen = 'Alerjeninizi seçiniz';
 
   // Utility
   static const saveTitle = 'Save';
   static const welcomeTitle = 'Welcome';
+  static const yesTitle = 'Evet';
+  static const noTitle = 'Hayır';
+
+  // Dialog
+  static const dialogExitTitle = 'Emin Misiniz ?';
+  static const dialogExitContent = 'Hesabınızdan çıkış yapmak istediğinizden emin misiniz ?';
 
   // Validation Types
   static const validationName = 'name';

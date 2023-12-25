@@ -23,7 +23,6 @@ class RegisterCubit extends Cubit<RegisterState> {
     if (responseAuth.user == null) return false;
     final response = await FirebaseCollections.user.reference.add(user.toJson());
     if (response.id.isEmpty) return false;
-    emit(state.copyWith(isRedirect: true));
     changeLoading();
     return true;
   }
@@ -34,17 +33,15 @@ class RegisterCubit extends Cubit<RegisterState> {
 }
 
 class RegisterState {
-  final bool isRedirect;
   final bool isLoading;
 
-  RegisterState({this.isRedirect = false, this.isLoading = false});
+  RegisterState({this.isLoading = false});
 
   RegisterState copyWith({
     bool? isRedirect,
     bool? isLoading,
   }) {
     return RegisterState(
-      isRedirect: isRedirect ?? this.isRedirect,
       isLoading: isLoading ?? this.isLoading,
     );
   }

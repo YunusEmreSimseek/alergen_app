@@ -1,5 +1,7 @@
-import 'package:alergen_app/feature/login/view/login_view.dart';
-import 'package:alergen_app/feature/profile/view_model/profile_cubit.dart';
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:alergen_app/feature/login/login_view.dart';
+import 'package:alergen_app/feature/profile/profile_cubit.dart';
 import 'package:alergen_app/product/constant/color_constant.dart';
 import 'package:alergen_app/product/constant/string_constant.dart';
 import 'package:alergen_app/product/model/user_model.dart';
@@ -23,7 +25,6 @@ class _ProfileViewState extends State<ProfileView> {
   UserModel user = UserModel();
   UserModel? updatedModel;
   final _profileLogic = ProfileLogic();
-  final ProfileCubit profileCubit = ProfileCubit();
 
   Future<void> getUser() async {
     await context.read<ProfileCubit>().fetchUserDetails(FirebaseAuth.instance.currentUser);
@@ -36,11 +37,6 @@ class _ProfileViewState extends State<ProfileView> {
     super.initState();
     resetState();
     Future.microtask(() => getUser());
-  }
-
-  @override
-  Future<void> dispose() async {
-    super.dispose();
   }
 
   void resetState() {
@@ -61,9 +57,7 @@ class _ProfileViewState extends State<ProfileView> {
       builder: (context, state) {
         final read = context.read<ProfileCubit>();
         if (state.values == null) {
-          return const Center(
-            child: Text('values null döndü'),
-          );
+          return const SizedBox.shrink();
         } else {
           return Scaffold(
             appBar: AppBar(
@@ -75,7 +69,7 @@ class _ProfileViewState extends State<ProfileView> {
                     child: CircularProgressIndicator(color: ColorConstant.colorBlack),
                   )
                 else
-                  const _exitToAppButton()
+                  const _ExitToAppButton()
               ],
             ),
             body: Padding(
@@ -119,10 +113,8 @@ class _ProfileViewState extends State<ProfileView> {
   }
 }
 
-class _exitToAppButton extends StatelessWidget {
-  const _exitToAppButton({
-    super.key,
-  });
+class _ExitToAppButton extends StatelessWidget {
+  const _ExitToAppButton();
 
   @override
   Widget build(BuildContext context) {
@@ -131,20 +123,20 @@ class _exitToAppButton extends StatelessWidget {
           showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                    title: const TitleText(title: 'Emin Misiniz ?'),
-                    content: const SubtitleText(title: 'Hesabınızdan çıkış yapmak istediğinizden emin misiniz ?'),
+                    title: const TitleText(title: StringConstant.dialogExitTitle),
+                    content: const SubtitleText(title: StringConstant.dialogExitContent),
                     actions: [
                       TextButton(
                           onPressed: () async {
                             await FirebaseUIAuth.signOut(auth: FirebaseAuth.instance, context: context);
                             context.route.navigateToPage(const LoginVieww());
                           },
-                          child: const Text('Evet')),
+                          child: const Text(StringConstant.yesTitle)),
                       TextButton(
                           onPressed: () {
                             context.route.pop();
                           },
-                          child: const Text('Hayır'))
+                          child: const Text(StringConstant.noTitle))
                     ],
                   ));
         },
@@ -177,13 +169,12 @@ class GetInfo extends StatelessWidget {
             height: context.sized.dynamicHeight(.45),
             child: ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
-              // scrollDirection: Axis.vertical,
-              // itemCount: widget.userModel.props.length,
               itemCount: 5,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding: context.padding.verticalLow,
                   child: TextFormField(
+                      obscureText: index == 4 ? true : false,
                       controller: controllerList[index],
                       enabled: (index == 2 || index == 3 || index == 4) ? false : true,
                       onChanged: (value) {

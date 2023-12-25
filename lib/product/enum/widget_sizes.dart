@@ -1,10 +1,10 @@
-enum WidgetSizes {
+enum WidgetSize {
   buttonNormal(56),
   iconNormal(30),
   iconSmall(15),
   ;
 
-  final int value;
+  final double value;
   // ignore: sort_constructors_first
-  const WidgetSizes(this.value);
+  const WidgetSize(this.value);
 }

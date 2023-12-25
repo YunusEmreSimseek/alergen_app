@@ -1,4 +1,7 @@
-import 'package:alergen_app/feature/alergen/viewmodel/alergen_cubit.dart';
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:alergen_app/feature/alergen/alergen_cubit.dart';
+import 'package:alergen_app/product/constant/string_constant.dart';
 import 'package:alergen_app/product/model/alergen_model.dart';
 import 'package:alergen_app/product/model/user_model.dart';
 import 'package:alergen_app/product/widget/text/title_text.dart';
@@ -42,23 +45,14 @@ class _AlergenViewState extends State<AlergenView> {
           return Scaffold(
             appBar: AppBar(
               leading: const SizedBox.shrink(),
-              title: const TitleText(title: 'Alerjen Bilgileriniz'),
+              title: const TitleText(title: StringConstant.alergenInformation),
               actions: [
                 if (state.isLoading)
                   const Center(
                     child: CircularProgressIndicator(),
                   )
                 else
-                  AddAlergen(
-                    isUpdated: (value) async {
-                      if (value) {
-                        print('Eklendi');
-                        await read.fetchAndLoad(user!.id!);
-                      } else {
-                        print('Eklenemedi');
-                      }
-                    },
-                  ),
+                  const AddAlergen(),
               ],
             ),
             body: Padding(
@@ -66,35 +60,11 @@ class _AlergenViewState extends State<AlergenView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: context.padding.onlyBottomNormal,
-                    child: state.userAlergens.isEmpty
-                        ? const TitleText(title: 'Alerjen bilgisi girilmedi')
-                        : const TitleText(title: 'Sahip olduğunuz alerjenler'),
-                  ),
-                  SizedBox(
-                    height: context.sized.dynamicHeight(.6),
-                    child: ListView.builder(
-                      itemCount: state.userAlergens.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: context.padding.verticalLow,
-                          child: Row(
-                            children: [
-                              Text(state.userAlergens[index].name ?? ''),
-                              const Spacer(),
-                              IconButton(
-                                  onPressed: () async {
-                                    await read.removeUserIntoAlergen(state.user!.id!, state.userAlergens[index]);
-                                    await read.fetchAndLoad(state.user!.id);
-                                  },
-                                  icon: const Icon(Icons.remove_circle_outline))
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                  state.userAlergens.isEmpty
+                      ? const TitleText(title: 'Alerjen bilgisi girilmedi')
+                      : const TitleText(title: 'Sahip olduğunuz alerjenler'),
+                  context.sized.emptySizedHeightBoxLow3x,
+                  _userAlergensList(context, state, read),
                 ],
               ),
             ),
@@ -103,12 +73,37 @@ class _AlergenViewState extends State<AlergenView> {
       },
     );
   }
+
+  SizedBox _userAlergensList(BuildContext context, AlergenState state, AlergenCubit read) {
+    return SizedBox(
+      height: context.sized.dynamicHeight(.6),
+      child: ListView.builder(
+        itemCount: state.userAlergens.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: context.padding.verticalLow,
+            child: Row(
+              children: [
+                Text(state.userAlergens[index].name ?? ''),
+                const Spacer(),
+                IconButton(
+                    onPressed: () async {
+                      await read.removeUserIntoAlergen(state.user!.id!, state.userAlergens[index]);
+                      await read.fetchAndLoad(state.user!.id);
+                    },
+                    icon: const Icon(Icons.remove_circle_outline))
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
 }
 
 class AddAlergen extends StatefulWidget {
-  const AddAlergen({super.key, required this.isUpdated});
+  const AddAlergen({super.key});
 
-  final ValueSetter<bool> isUpdated;
   @override
   State<AddAlergen> createState() => _AddAlergenState();
 }
@@ -124,7 +119,7 @@ class _AddAlergenState extends State<AddAlergen> {
               showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                        title: const TitleText(title: 'Alerjeninizi seçiniz'),
+                        title: const TitleText(title: StringConstant.alergenChooseAlergen),
                         content: DropdownButtonFormField<AlergenModel>(
                           items: state.alergens
                               .map((e) => DropdownMenuItem<AlergenModel>(
@@ -140,7 +135,6 @@ class _AddAlergenState extends State<AddAlergen> {
                           TextButton(
                               onPressed: () {
                                 context.read<AlergenCubit>().addUserIntoAlergen(state.user!.id!, selectedAlergen!);
-                                widget.isUpdated.call(true);
                               },
                               child: const Text('Ekle'))
                         ],

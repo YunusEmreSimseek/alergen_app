@@ -14,10 +14,8 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> fetchProducts() async {
     changeLoading();
     final productCollectionReference = FirebaseCollections.product.reference;
-
     final response = await productCollectionReference
         .withConverter(
-          // ignore: prefer_const_constructors
           fromFirestore: (snapshot, options) => ProductModel().fromFirebase(snapshot),
           toFirestore: (value, options) {
             return value.toJson();
@@ -28,6 +26,27 @@ class HomeCubit extends Cubit<HomeState> {
       final values = response.docs.map((e) => e.data()).toList();
       emit(state.copyWith(productList: values));
       _productList = values;
+    }
+    changeLoading();
+  }
+
+  Future<void> fetchProductsByCategory() async {
+    changeLoading();
+    final productCollectionReference = FirebaseCollections.product.reference;
+    final response = await productCollectionReference
+        .where("categoryId", isEqualTo: state.selectedCategory!.id)
+        .withConverter(
+          fromFirestore: (snapshot, options) => ProductModel().fromFirebase(snapshot),
+          toFirestore: (value, options) {
+            return value.toJson();
+          },
+        )
+        .get();
+    if (response.docs.isNotEmpty) {
+      final productByCategoryList = response.docs.map((e) => e.data()).toList();
+      emit(state.copyWith(productByCategoryList: productByCategoryList));
+    } else {
+      emit(state.copyWith(productByCategoryList: List.empty()));
     }
     changeLoading();
   }
@@ -62,7 +81,6 @@ class HomeCubit extends Cubit<HomeState> {
 
     final response = await categoryCollectionReference
         .withConverter(
-          // ignore: prefer_const_constructors
           fromFirestore: (snapshot, options) => CategoryModel().fromFirebase(snapshot),
           toFirestore: (value, options) {
             return value.toJson();
@@ -77,8 +95,18 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void updateSelectedProduct(ProductModel? product) {
-    if (product != null) {
-      emit(state.copyWith(selectedProduct: product));
+    emit(state.copyWith(selectedProduct: product));
+  }
+
+  void updateSelectedCategory(CategoryModel? category) {
+    if (category != null) {
+      changeLoading();
+      if (category == state.selectedCategory) {
+        emit(state.copyWith(selectedCategory: CategoryModel(), productByCategoryList: List.empty()));
+      } else {
+        emit(state.copyWith(selectedCategory: category));
+      }
+      changeLoading();
     }
   }
 
@@ -98,6 +126,8 @@ class HomeState {
         'https://firebasestorage.googleapis.com/v0/b/alergenproject.appspot.com/o/alerjenler.jpeg?alt=media&token=2d08fd5e-ff1a-4f6b-8e7f-95c433777c0f',
     this.image2 =
         'https://firebasestorage.googleapis.com/v0/b/alergenproject.appspot.com/o/alerjenler2.jpeg?alt=media&token=ead37fc8-c5dd-4729-9820-1cbf230b01d1',
+    this.selectedCategory,
+    this.productByCategoryList,
   }) : imagesUrl = [image1, image2];
   final List<ProductModel>? productList;
   final UserModel? values;
@@ -107,6 +137,8 @@ class HomeState {
   String? image1;
   String? image2;
   final List<String?>? imagesUrl;
+  final List<ProductModel>? productByCategoryList;
+  final CategoryModel? selectedCategory;
 
   HomeState copyWith({
     List<ProductModel>? productList,
@@ -114,6 +146,8 @@ class HomeState {
     bool? isLoading,
     ProductModel? selectedProduct,
     List<CategoryModel>? categoryList,
+    CategoryModel? selectedCategory,
+    List<ProductModel>? productByCategoryList,
   }) {
     return HomeState(
       productList: productList ?? this.productList,
@@ -121,6 +155,8 @@ class HomeState {
       isLoading: isLoading ?? this.isLoading,
       selectedProduct: selectedProduct ?? this.selectedProduct,
       categoryList: categoryList ?? this.categoryList,
+      selectedCategory: selectedCategory ?? this.selectedCategory,
+      productByCategoryList: productByCategoryList ?? this.productByCategoryList,
     );
   }
 }

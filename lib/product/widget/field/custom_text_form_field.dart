@@ -23,30 +23,11 @@ class CustomTextFormField extends StatefulWidget {
 }
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
-  String? validateEmail(String? value) {
-    const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
-        r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
-        r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
-        r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
-        r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
-        r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
-        r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
-    final regex = RegExp(pattern);
-
-    return value!.isNotEmpty && !regex.hasMatch(value) ? 'Enter a valid email address' : null;
-  }
-
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      //validator: (value) => (value == null || value.isEmpty) ? 'Not empty' : null ,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
-        // if (!value!.isValidName) {
-        //   return 'Enter valid name';
-        // }
-        // return 'no problem';
-
         switch (widget.validationType?.toLowerCase()) {
           case 'name':
             if (value!.isEmpty) {
@@ -76,15 +57,6 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           default:
         }
         return null;
-
-        // if (widget.validator != null) {
-        //   return widget.validator!(value);
-        // } else {
-        //   if (value == null) {
-        //     return 'bos bırakılamaz';
-        //   }
-        //   return null;
-        // }
       },
       controller: widget.controller,
       keyboardType: widget.keyboardtype ?? TextInputType.text,
@@ -118,7 +90,6 @@ class _GetterFormFieldState extends State<GetterFormField> {
             padding: context.padding.low,
             child: TextFormField(
               initialValue: 'ad',
-              //controller: widget.controller,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
               ),
