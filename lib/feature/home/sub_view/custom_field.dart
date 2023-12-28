@@ -28,11 +28,20 @@ class _CustomField extends StatelessWidget {
                   return CupertinoAlertDialog(
                     title: TitleText(title: product.name!),
                     content: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: context.padding.verticalNormal,
                           child: Image.network(product.imageUrl!),
                         ),
+                        state.notRecommendedProducts!.contains(product)
+                            ? SizedBox(
+                                width: context.sized.dynamicWidth(.1),
+                                child: const Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [Icon(Icons.cancel), Text('Dikkat bu ürüne karşı alerjınız var ')]),
+                              )
+                            : const SizedBox.shrink(),
                         Text(product.content!),
                       ],
                     ),

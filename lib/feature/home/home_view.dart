@@ -32,8 +32,11 @@ class _HomeViewState extends State<HomeView> {
   Future<void> getAndSetUserModel() async {
     final read = context.read<HomeCubit>();
     user = (await read.fetchUserDetails(FirebaseAuth.instance.currentUser))!;
+    await read.fetchUserAlergens(user.id);
+
     await read.fetchProducts();
     await read.fetchCategories();
+    await read.fetchProductsRecommended();
   }
 
   @override

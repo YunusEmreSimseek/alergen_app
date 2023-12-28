@@ -6,6 +6,7 @@ class ProductModel with EquatableMixin, IdModel, BaseFirebaseModel<ProductModel>
   final String? imageUrl;
   final String? content;
   final String? categoryId;
+  final List<String>? alergenIdList;
   @override
   final String? id;
 
@@ -14,17 +15,19 @@ class ProductModel with EquatableMixin, IdModel, BaseFirebaseModel<ProductModel>
     this.imageUrl,
     this.content,
     this.categoryId,
+    this.alergenIdList,
     this.id,
   });
 
   @override
-  List<Object?> get props => [name, imageUrl, content, categoryId, id];
+  List<Object?> get props => [name, imageUrl, content, categoryId, id, alergenIdList];
 
   ProductModel copyWith({
     String? name,
     String? imageUrl,
     String? content,
     String? categoryId,
+    List<String>? alergenIdList,
     String? id,
   }) {
     return ProductModel(
@@ -32,6 +35,7 @@ class ProductModel with EquatableMixin, IdModel, BaseFirebaseModel<ProductModel>
       imageUrl: imageUrl ?? this.imageUrl,
       content: content ?? this.content,
       categoryId: categoryId ?? this.categoryId,
+      alergenIdList: alergenIdList ?? this.alergenIdList,
       id: id ?? this.id,
     );
   }
@@ -42,6 +46,7 @@ class ProductModel with EquatableMixin, IdModel, BaseFirebaseModel<ProductModel>
       'imageUrl': imageUrl,
       'content': content,
       'categoryId': categoryId,
+      'alergenIdList': alergenIdList,
       'id': id,
     };
   }
@@ -53,6 +58,7 @@ class ProductModel with EquatableMixin, IdModel, BaseFirebaseModel<ProductModel>
       imageUrl: json['imageUrl'] as String?,
       content: json['content'] as String?,
       categoryId: json['categoryId'] as String?,
+      alergenIdList: (json['alergenIdList'] as List<dynamic>?)?.map((e) => e as String).toList(),
       id: json['id'] as String?,
     );
   }

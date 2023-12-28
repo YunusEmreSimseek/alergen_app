@@ -2,9 +2,9 @@
 
 import 'package:alergen_app/feature/login/login_view.dart';
 import 'package:alergen_app/feature/profile/profile_cubit.dart';
-import 'package:alergen_app/main.dart';
 import 'package:alergen_app/product/constant/string_constant.dart';
 import 'package:alergen_app/product/model/user_model.dart';
+import 'package:alergen_app/product/widget/button/app_bar_dark_mode_icon_button.dart';
 import 'package:alergen_app/product/widget/button/profile_button.dart';
 import 'package:alergen_app/product/widget/dialog/my_show_dialog.dart';
 import 'package:alergen_app/product/widget/text/sub_title_text.dart';
@@ -71,15 +71,7 @@ class _ProfileViewState extends State<ProfileView> {
                     child: CircularProgressIndicator(),
                   )
                 else
-                  BlocBuilder<Maincubit, bool>(
-                    builder: (context, state) {
-                      return IconButton(
-                          onPressed: () {
-                            context.read<Maincubit>().changeIsDarkMode();
-                          },
-                          icon: state ? const Icon(Icons.dark_mode) : const Icon(Icons.dark_mode_outlined));
-                    },
-                  ),
+                  const AppBarDarkModeIconButton(),
                 const _ExitToAppButton()
               ],
             ),

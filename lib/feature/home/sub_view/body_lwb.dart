@@ -7,7 +7,7 @@ class _BodyLwb extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        final products = state.productList ?? [];
+        final products = state.recommendedProducts ?? [];
         return Padding(
           padding: context.padding.onlyTopLow,
           child: SizedBox(
