@@ -55,6 +55,12 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> fetchProductsRecommended() async {
     changeLoading();
     List<String> idList = [];
+    if (state.userAlergens!.isEmpty) {
+      emit(state.copyWith(notRecommendedProducts: List.empty(), recommendedProducts: state.productList));
+
+      changeLoading();
+      return;
+    }
     for (var element in state.userAlergens!) {
       idList.add(element.id!);
     }

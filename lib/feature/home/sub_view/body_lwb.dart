@@ -22,7 +22,7 @@ class _BodyLwb extends StatelessWidget {
                         products[index].imageUrl!,
                         height: context.sized.dynamicHeight(.3),
                         width: context.sized.dynamicWidth(.25),
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                       ),
                       title: Text(products[index].name!),
                       subtitle: Text(products[index].content!),

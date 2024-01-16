@@ -57,6 +57,7 @@ class StringConstant {
       'Seçtiğiniz alerjen, zaten alerjen listenizde bulunduğu için listeye eklenemedi.';
   static const alergenRemovedSuccesTitle = 'Alerjen Başarıyla Silindi';
   static const alergenRemovedSuccesContent = 'Seçtiğiniz alerjen, alerjen listenizden başarıyla silindi.';
+  static const alergenAlert = 'DİKKAT \n bu ürüne karşı alerjiniz var ';
 
   // Validation Types
   static const validationName = 'name';

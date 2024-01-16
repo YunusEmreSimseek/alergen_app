@@ -35,17 +35,9 @@ class _ProductListWithCategoryState extends State<ProductListWithCategory> {
               itemBuilder: (BuildContext context, int index) {
                 final currentProduct = read.state.productByCategoryList![index];
                 return Padding(
-                    padding: context.padding.verticalLow,
-                    child: ListTile(
-                      leading: Image.network(
-                        currentProduct.imageUrl!,
-                        height: context.sized.dynamicHeight(.1),
-                        width: context.sized.dynamicWidth(.25),
-                        fit: BoxFit.cover,
-                      ),
-                      title: Text(currentProduct.name!),
-                      subtitle: Text(currentProduct.content!),
-                    ));
+                  padding: context.padding.verticalLow,
+                  child: CustomListTile(currentProduct: currentProduct),
+                );
               },
             ),
           );

@@ -35,13 +35,20 @@ class _CustomField extends StatelessWidget {
                           child: Image.network(product.imageUrl!),
                         ),
                         state.notRecommendedProducts!.contains(product)
-                            ? SizedBox(
-                                width: context.sized.dynamicWidth(.1),
-                                child: const Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [Icon(Icons.cancel), Text('Dikkat bu ürüne karşı alerjınız var ')]),
-                              )
+                            ? Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                                const Icon(
+                                  Icons.cancel,
+                                  size: 20,
+                                  color: ColorConstant.colorRed,
+                                ),
+                                Text(
+                                  StringConstant.alergenAlert,
+                                  style: context.general.textTheme.bodyMedium
+                                      ?.copyWith(color: ColorConstant.colorRed, fontWeight: FontWeight.w700),
+                                )
+                              ])
                             : const SizedBox.shrink(),
+                        context.sized.emptySizedHeightBoxLow,
                         Text(product.content!),
                       ],
                     ),
