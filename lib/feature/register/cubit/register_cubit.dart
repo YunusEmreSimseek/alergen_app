@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+part 'register_state.dart';
+
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterState());
 
@@ -29,20 +31,5 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   void changeLoading() {
     emit(state.copyWith(isLoading: !state.isLoading));
-  }
-}
-
-class RegisterState {
-  final bool isLoading;
-
-  RegisterState({this.isLoading = false});
-
-  RegisterState copyWith({
-    bool? isRedirect,
-    bool? isLoading,
-  }) {
-    return RegisterState(
-      isLoading: isLoading ?? this.isLoading,
-    );
   }
 }

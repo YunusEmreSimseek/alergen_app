@@ -1,4 +1,4 @@
-part of '../home_view.dart';
+part of '../view/home_view.dart';
 
 class _CustomField extends StatelessWidget {
   const _CustomField(this.controller);

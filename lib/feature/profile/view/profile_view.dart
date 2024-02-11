@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:alergen_app/feature/login/login_view.dart';
-import 'package:alergen_app/feature/profile/profile_cubit.dart';
+import 'package:alergen_app/feature/login/view/login_view.dart';
+import 'package:alergen_app/feature/profile/cubit/profile_cubit.dart';
 import 'package:alergen_app/product/constant/string_constant.dart';
 import 'package:alergen_app/product/model/user_model.dart';
 import 'package:alergen_app/product/widget/button/app_bar_dark_mode_icon_button.dart';

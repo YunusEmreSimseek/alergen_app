@@ -1,6 +1,6 @@
 import 'package:alergen_app/feature/base/view/base_scaffold.dart';
-import 'package:alergen_app/feature/login/login_cubit.dart';
-import 'package:alergen_app/feature/register/register_view.dart';
+import 'package:alergen_app/feature/login/cubit/login_cubit.dart';
+import 'package:alergen_app/feature/register/view/register_view.dart';
 import 'package:alergen_app/product/constant/string_constant.dart';
 import 'package:alergen_app/product/widget/button/app_bar_dark_mode_icon_button.dart';
 import 'package:alergen_app/product/widget/text/title_text.dart';

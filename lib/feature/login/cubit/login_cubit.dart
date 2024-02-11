@@ -3,6 +3,8 @@ import 'package:alergen_app/product/enum/cache_items.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+part 'login_state.dart';
+
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginState());
 
@@ -17,22 +19,5 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> tokenSaveToCache(String token) async {
     await CacheItems.token.write(token);
-  }
-}
-
-class LoginState {
-  LoginState({this.isRedirect = false, this.isLoading = false});
-
-  final bool isRedirect;
-  final bool isLoading;
-
-  LoginState copyWith({
-    bool? isRedirect,
-    bool? isLoading,
-  }) {
-    return LoginState(
-      isRedirect: isRedirect ?? this.isRedirect,
-      isLoading: isLoading ?? this.isLoading,
-    );
   }
 }

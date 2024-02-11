@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:alergen_app/feature/alergen/alergen_cubit.dart';
+import 'package:alergen_app/feature/alergen/cubit/alergen_cubit.dart';
+import 'package:alergen_app/feature/alergen/cubit/alergen_state.dart';
 import 'package:alergen_app/product/constant/string_constant.dart';
 import 'package:alergen_app/product/model/alergen_model.dart';
 import 'package:alergen_app/product/model/user_model.dart';

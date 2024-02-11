@@ -1,8 +1,8 @@
-import 'package:alergen_app/feature/alergen/alergen_cubit.dart';
-import 'package:alergen_app/feature/home/home_cubit.dart';
-import 'package:alergen_app/feature/login/login_cubit.dart';
-import 'package:alergen_app/feature/login/login_view.dart';
-import 'package:alergen_app/feature/profile/profile_cubit.dart';
+import 'package:alergen_app/feature/alergen/cubit/alergen_cubit.dart';
+import 'package:alergen_app/feature/home/cubit/home_cubit.dart';
+import 'package:alergen_app/feature/login/cubit/login_cubit.dart';
+import 'package:alergen_app/feature/login/view/login_view.dart';
+import 'package:alergen_app/feature/profile/cubit/profile_cubit.dart';
 import 'package:alergen_app/product/init/app_start.dart';
 import 'package:alergen_app/product/utility/theme/custom_theme.dart';
 import 'package:flutter/material.dart';

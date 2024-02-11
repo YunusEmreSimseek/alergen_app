@@ -1,6 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:alergen_app/feature/home/home_cubit.dart';
+import 'package:alergen_app/feature/home/cubit/home_cubit.dart';
 import 'package:alergen_app/feature/home/sub_view/home_search_delegate.dart';
 import 'package:alergen_app/product/constant/color_constant.dart';
 import 'package:alergen_app/product/constant/string_constant.dart';
@@ -15,10 +15,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kartal/kartal.dart';
 
-part 'sub_view/body_lwb.dart';
-part 'sub_view/category_lwb.dart';
-part 'sub_view/custom_field.dart';
-part 'sub_view/product_list_with_category.dart';
+part '../sub_view/body_lwb.dart';
+part '../sub_view/category_lwb.dart';
+part '../sub_view/custom_field.dart';
+part '../sub_view/product_list_with_category.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});

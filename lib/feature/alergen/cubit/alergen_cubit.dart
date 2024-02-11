@@ -1,10 +1,11 @@
+import 'package:alergen_app/feature/alergen/cubit/alergen_state.dart';
 import 'package:alergen_app/product/firebase/firebase_collections.dart';
 import 'package:alergen_app/product/model/alergen_model.dart';
 import 'package:alergen_app/product/model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AlergenCubit extends Cubit<AlergenState> {
+final class AlergenCubit extends Cubit<AlergenState> {
   AlergenCubit() : super(AlergenState());
 
   Future<UserModel?> fetchUserDetails(User? user) async {
@@ -105,26 +106,5 @@ class AlergenCubit extends Cubit<AlergenState> {
 
   void changeLoading() {
     emit(state.copyWith(isLoading: !state.isLoading));
-  }
-}
-
-class AlergenState {
-  AlergenState({this.isLoading = false, List<AlergenModel>? userAlergens, List<AlergenModel>? alergens, this.user})
-      : alergens = alergens ?? [],
-        userAlergens = userAlergens ?? [];
-
-  final List<AlergenModel> userAlergens;
-  final List<AlergenModel> alergens;
-  final UserModel? user;
-  final bool isLoading;
-
-  AlergenState copyWith(
-      {List<AlergenModel>? userAlergens, List<AlergenModel>? alergens, bool? isLoading, UserModel? user}) {
-    return AlergenState(
-      userAlergens: userAlergens ?? this.userAlergens,
-      alergens: alergens ?? this.alergens,
-      isLoading: isLoading ?? this.isLoading,
-      user: user ?? this.user,
-    );
   }
 }

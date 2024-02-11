@@ -1,4 +1,4 @@
-import 'package:alergen_app/feature/register/register_cubit.dart';
+import 'package:alergen_app/feature/register/cubit/register_cubit.dart';
 import 'package:alergen_app/product/constant/string_constant.dart';
 import 'package:alergen_app/product/model/user_model.dart';
 import 'package:alergen_app/product/widget/dialog/my_show_dialog.dart';
