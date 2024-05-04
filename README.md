@@ -4,7 +4,7 @@ This application is an application where you can quickly register and log in, ac
 
 ### Purpose
 
-This application is the implementation of the project we applied to Teknofest.
+This application is the developing mobile application of our project, which has been accepted by TUBITAK.
 
 ### Features
 
