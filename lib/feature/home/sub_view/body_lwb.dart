@@ -11,7 +11,7 @@ class _BodyLwb extends StatelessWidget {
         return Padding(
           padding: context.padding.onlyTopLow,
           child: SizedBox(
-            height: context.sized.dynamicHeight(.175),
+            height: context.sized.dynamicHeight(.15),
             child: ListView.builder(
               itemCount: products.length,
               itemBuilder: (BuildContext context, int index) {

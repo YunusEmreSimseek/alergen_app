@@ -104,11 +104,7 @@ class _ProfileViewState extends State<ProfileView> {
                           : const SizedBox.shrink(),
                       const Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          // ProfileButton(text: StringConstants.profileChangeEmail, function: () {}),
-                          // ProfileButton(text: StringConstants.profileChangePassword, function: () {}),
-                          // ProfileButton(text: StringConstants.profileChangeMobileNo, function: () {}),
-                        ],
+                        children: [],
                       ),
                     ],
                   ),
@@ -174,7 +170,7 @@ class GetInfo extends StatelessWidget {
         return Padding(
           padding: context.padding.onlyBottomLow,
           child: SizedBox(
-            height: context.sized.dynamicHeight(.45),
+            height: context.sized.dynamicHeight(.6),
             child: ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 5,

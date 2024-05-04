@@ -1,8 +1,8 @@
 import 'package:alergen_app/product/firebase/firebase_collections.dart';
 import 'package:alergen_app/product/model/user_model.dart';
-import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'profile_state.dart';
 

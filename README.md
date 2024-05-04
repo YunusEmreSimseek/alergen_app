@@ -1,16 +1,42 @@
-# alergen_app
+# Alergen App
 
-A new Flutter project.
+This application is an application where you can quickly register and log in, access nutritional values ​​and allergen information by searching for the product you want, enter your allergy information and receive alerts when you reach the food you are allergic to, and see food recommendations based on your allergy information.
 
-## Getting Started
+### Purpose
 
-This project is a starting point for a Flutter application.
+This application is the implementation of the project we applied to Teknofest.
 
-A few resources to get you started if this is your first Flutter project:
+### Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Home : The page where you can search for the product you want, browse by filtering by categories, and have product recommendations based on your allergy information.
+- Alergens : The page where you can easily add and view your allergy information.
+- Profile : The page where you can view and edit your user information.
+
+### Built With
+
++ [Flutter](https://flutter.dev/)
++ [Dart](https://dart.dev/)
+
+### Packages
+
++ State Management
+    + Bloc
++ Firebase
+    + Firebase Core
+    + Cloud Firestore
+    + Firebase Auth
+    + Firebase Ui Auth
++ Core
+    + Kartal
+    + Equatable
+    + Image Picker
+    + Logger
+    + RegexPattern
+    + Shared Preferences
+
+
+
+### Prewiew
+
+<img src="/screenshots/login.png" height="400"> <img src="/screenshots/register.png" height="400">  <img src="/screenshots/home_1.png" height="400"> <img src="/screenshots/home_search.png" height="400"> <img src="/screenshots/home_2.png.png" height="400"> <img src="/screenshots/home_3.png" height="400"> <img src="/screenshots/alergens.png" height="400"> <img src="/screenshots/add_alergen.png" height="400"> <img src="/screenshots/alergens_2.png" height="400"> <img src="/screenshots/profile.png" height="400">
